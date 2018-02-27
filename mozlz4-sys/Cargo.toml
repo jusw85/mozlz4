@@ -1,0 +1,15 @@
+[package]
+name = "mozlz4-sys"
+version = "0.1.0"
+authors = ["Justin Wong <jusw85@hotmail.com>"]
+links = "lz4"
+build = "build.rs"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+cc = "1.0"
