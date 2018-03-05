@@ -42,7 +42,7 @@ fn run() -> Result<()> {
         .arg(
             Arg::with_name("compress")
                 .help("compress to mozlz4")
-                .short("c")
+                .short("z")
                 .long("compress"),
         )
         .arg(
