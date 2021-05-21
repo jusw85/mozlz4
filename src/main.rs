@@ -15,6 +15,7 @@ use errors::*;
 use clap::{App, Arg};
 use byteorder::{ByteOrder, LittleEndian, WriteBytesExt};
 use mozlz4_sys::*;
+use std::os::raw::{c_char, c_int};
 
 const MAGIC_NUMBER: &[u8] = b"mozLz40\0";
 
@@ -119,10 +120,10 @@ fn decompress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
 
     unsafe {
         let bytes_decompressed = LZ4_decompress_safe(
-            block.as_ptr() as *const _,
-            obuffer.as_mut_ptr() as *mut _,
-            block.len() as i32,
-            decompressed_size as i32,
+            block.as_ptr() as *const c_char,
+            obuffer.as_mut_ptr() as *mut c_char,
+            block.len() as c_int,
+            decompressed_size as c_int,
         );
         if bytes_decompressed < 0 {
             bail!("Malformed input file")
@@ -145,10 +146,10 @@ fn compress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
 
     unsafe {
         let bytes_compressed = LZ4_compress_default(
-            ibuffer.as_ptr() as *const _,
-            obuffer[(magic_number_len + 4)..].as_mut_ptr() as *mut _,
-            uncompressed_size as i32,
-            compress_bound as i32,
+            ibuffer.as_ptr() as *const c_char,
+            obuffer[(magic_number_len + 4)..].as_mut_ptr() as *mut c_char,
+            uncompressed_size as c_int,
+            compress_bound as c_int,
         );
         if bytes_compressed <= 0 {
             bail!("Compression failed")
