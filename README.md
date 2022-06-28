@@ -40,6 +40,6 @@ Compress search.json
 ## Notes
 
     $ rustc --version
-    rustc 1.24.0 (4d90ac38c 2018-02-12)
+    rustc 1.61.0 (fe5b13d68 2022-05-18)
 
 [lz4.h](https://github.com/mozilla/gecko-dev/blob/77a9b22fbc7353b598c8f975f6e9c08d1767133d/mfbt/lz4.h) and [lz4.c](https://github.com/mozilla/gecko-dev/blob/77a9b22fbc7353b598c8f975f6e9c08d1767133d/mfbt/lz4.c) copied directly from Mozilla repo

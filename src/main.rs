@@ -76,7 +76,7 @@ fn run() -> Result<()> {
 }
 
 fn write_to_file(obuffer: Vec<u8>, ofilename: &str) -> Result<()> {
-    let mut ofile: Box<Write> = if ofilename == "-" {
+    let mut ofile: Box<dyn Write> = if ofilename == "-" {
         Box::new(std::io::stdout())
     } else {
         Box::new(File::create(ofilename)
@@ -89,8 +89,8 @@ fn write_to_file(obuffer: Vec<u8>, ofilename: &str) -> Result<()> {
     Ok(())
 }
 
-fn read_to_buffer(ifilename: &str) -> Result<(Vec<u8>)> {
-    let mut ifile: Box<Read> = if ifilename == "-" {
+fn read_to_buffer(ifilename: &str) -> Result<Vec<u8>> {
+    let mut ifile: Box<dyn Read> = if ifilename == "-" {
         Box::new(std::io::stdin())
     } else {
         Box::new(File::open(ifilename).chain_err(|| format!("Unable to open file {}", ifilename))?)
@@ -104,7 +104,7 @@ fn read_to_buffer(ifilename: &str) -> Result<(Vec<u8>)> {
     Ok(ibuffer)
 }
 
-fn decompress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
+fn decompress(ibuffer: Vec<u8>) -> Result<Vec<u8>> {
     let magic_number_len = MAGIC_NUMBER.len();
     if ibuffer.len() < (magic_number_len + 4) || !ibuffer.starts_with(MAGIC_NUMBER) {
         bail!("Unrecognized input file")
@@ -133,7 +133,7 @@ fn decompress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
     Ok(obuffer)
 }
 
-fn compress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
+fn compress(ibuffer: Vec<u8>) -> Result<Vec<u8>> {
     let uncompressed_size = ibuffer.len();
     let compress_bound = unsafe { LZ4_compressBound(uncompressed_size as i32) as usize };
 
@@ -156,5 +156,5 @@ fn compress(ibuffer: Vec<u8>) -> Result<(Vec<u8>)> {
         }
         obuffer.set_len(magic_number_len + 4 + bytes_compressed as usize);
     }
-    Ok((obuffer))
+    Ok(obuffer)
 }
