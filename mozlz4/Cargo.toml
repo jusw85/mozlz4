@@ -1,0 +1,10 @@
+[package]
+name = "mozlz4"
+version = "0.1.0"
+edition = "2021"
+authors = ["Justin Wong <jusw85@hotmail.com>"]
+
+[dependencies]
+byteorder = "1"
+error-chain = "0.11"
+mozlz4-sys = { path = "../mozlz4-sys" }
