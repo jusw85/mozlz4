@@ -2,4 +2,5 @@
 members = [
     "mozlz4-sys",
     "mozlz4-bin",
+    "mozlz4",
 ]
