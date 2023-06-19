@@ -1,5 +1,5 @@
 [package]
-name = "mozlz4"
+name = "mozlz4-bin"
 version = "0.1.0"
 authors = ["Justin Wong <jusw85@hotmail.com>"]
 
@@ -7,4 +7,4 @@ authors = ["Justin Wong <jusw85@hotmail.com>"]
 error-chain = "0.11"
 clap = "2.30"
 byteorder = "1"
-mozlz4-sys = { path = "mozlz4-sys" }
+mozlz4-sys = { path = "../mozlz4-sys" }

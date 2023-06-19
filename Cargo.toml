@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "mozlz4-sys",
+    "mozlz4-bin",
+]
